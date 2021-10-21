@@ -1,6 +1,8 @@
 .include ../models/ptm_130.spi
 .include ../lib/SUN_TRIO_GF130N.spi
 
+.include comp.cir
+
 .option TNOM=27 GMIN=1e-20
 
 * Main circuit
@@ -13,36 +15,3 @@
 XCM VDD VSS PG RAMP VBN1 DATA
 * XM1 READ VCMP_OUT DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 VDD VSS MEMORY
 .ends
-
-* Comparator 
-.subckt COMP VDD VSS PG RAMP VBN1 OUT
-* Differential amplifier
-XN1 VCM PG VS VS NCHIO
-XN2 VCS RAMP VS VS NCHIO
-XN3 VS VBN1 VSS VSS NCHIO
-* Current mirror
-XPCM VDD VSS VCM VCS PCM
-* Common source amplifier
-XCS VDD VSS VCS VBN1 VINV CS
-* Inverter
-XINV VDD VSS VINV OUT INV
-.ends cmp
-
-* PMOS Current Mirror
-.subckt PCM VDD VSS VI VO
-* R1 VDD VG 20k
-XP1 VDD VI VI VI PCHIOA_4C
-XP2 VDD VI VO VO PCHIOA_4C
-.ends
-
-* Inverter
-.subckt INV VDD VSS VI VO
-XP1 VDD VI VO VO PCHIOA_4C
-XN1 VO VI VSS VSS NCHIO
-.ends INV
-
-* Signle stage common source amplifier
-.subckt CS VDD VSS VI VBN1 VO
-XP1 VDD VI VO VO PCHIOA_4C
-XN1 VO VBN1 VSS VSS NCHIO
-.ends CS

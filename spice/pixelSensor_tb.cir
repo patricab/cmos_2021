@@ -12,7 +12,7 @@ VPG VPG 0 dc 1
 VRAMP VRAMP 0 dc 0
 
 * Bias
-IPB1 0 VBN1 dc 100u
+IPB1 0 VBN1 dc 1u
 XMNB0 VBN1 VBN1 VSS VSS NCHCM2
 
 * DUT
@@ -29,8 +29,8 @@ XDUT VDD VSS VPG VRAMP VBN1 VOUT COMP
 dc VRAMP 0 2 0.001
 
 * Plot/write to file
-plot V(VOUT) V(VPG) V(VRAMP)
-* plot V(VOUT) 
+* plot V(VOUT) V(VPG) V(VRAMP)
+plot V(VOUT) 
 * hardcopy plot.ps V(VOUT)
 .endc
 .end
