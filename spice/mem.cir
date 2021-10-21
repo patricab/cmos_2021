@@ -1,0 +1,19 @@
+.include ../models/ptm_130.spi
+.include ../lib/SUN_TRIO_GF130N.spi
+
+.subckt mem VSS READ WRITE D7 D6 D5 D4 D3 D2 D1 D0 
+XM1 VSS READ WRITE D7 memcell
+XM2 VSS READ WRITE D6 memcell
+XM3 VSS READ WRITE D5 memcell
+XM4 VSS READ WRITE D4 memcell
+XM5 VSS READ WRITE D3 memcell
+XM6 VSS READ WRITE D2 memcell
+XM7 VSS READ WRITE D1 memcell
+XM8 VSS READ WRITE D0 memcell
+.ends mem
+
+.subckt memcell VSS READ WRITE IO
+XN1 VG WRITE IO IO NCHIO
+XN2 IO READ VD VD NCHIO
+XN3 VD VG VSS VSS NCHIO
+.ends memcell  
