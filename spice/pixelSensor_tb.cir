@@ -16,9 +16,9 @@ IPB1 0 VBN1 dc 1u
 XMNB0 VBN1 VBN1 VSS VSS NCHCM2
 
 * DUT
-.include pixelSensor.cir
-XDUT VDD VSS VPG VRAMP VBN1 VOUT COMP
-* .subckt COMP VDD VSS PG RAMP VBN1 OUT
+* .include comp.cir
+* XDUT VDD VSS VPG VRAMP VBN1 VOUT COMP
+* * .subckt COMP VDD VSS PG RAMP VBN1 OUT
 
 *----------------------------------------------------------------
 * NGSPICE control
@@ -31,6 +31,7 @@ dc VRAMP 0 2 0.001
 * Plot/write to file
 * plot V(VOUT) V(VPG) V(VRAMP)
 plot V(VOUT) 
+plot
 * hardcopy plot.ps V(VOUT)
 .endc
 .end

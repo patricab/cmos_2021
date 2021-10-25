@@ -1,0 +1,41 @@
+.include ../models/ptm_130_ngspice.spi
+.include ../lib/SUN_TR_GF130N.spi
+.option TNOM=27 GMIN=1e-15 reltol=1e-6 abstol=1e-6
+
+* Sources
+VDD VDD VSS dc 1.5
+VSS VSS 0 dc 0
+
+* Control signals/data
+* 0->5V, no delay, 1us rise/fall time, 1u pulse width, no repetition, no phase
+VWRITE VWRITE VSS dc 0 pulse(0 5 1n 1n 1n 1n 0 0)
+* 5->0V, no delay, 1us rise/fall time, 1u pulse width, no repetition, no phase
+VREAD VREAD VSS dc 0 pulse(5 0 6n 1n 1n 1n 0 0)
+
+* DATA: 0->5V, no delay, 1us rise/fall time, 1u pulse width, no repetition, no phase
+VD0 VD0 VSS dc 0 pulse(0 5 1n 1n 1n 3n 0 0)
+VD1 VD1 VSS dc 0 pulse(0 5 1n 1n 1n 3n 0 0)
+VD2 VD2 VSS dc 0 pulse(0 5 1n 1n 1n 3n 0 0)
+VD3 VD3 VSS dc 0 pulse(0 5 1n 1n 1n 3n 0 0)
+VD4 VD4 VSS dc 0 pulse(0 5 1n 1n 1n 3n 0 0)
+VD5 VD5 VSS dc 0 pulse(0 5 1n 1n 1n 3n 0 0)
+VD6 VD6 VSS dc 0 pulse(0 5 1n 1n 1n 3n 0 0)
+VD7 VD7 VSS dc 0 pulse(0 5 1n 1n 1n 3n 0 0)
+
+* DUT
+.include mem.cir
+XDUT VSS VREAD VWRITE VD7 VD6 VD5 VD4 VD3 VD2 VD1 VD0 mem
+
+*----------------------------------------------------------------
+* NGSPICE control
+*----------------------------------------------------------------
+* .plot V(VD7) V(VD6) V(VD5) V(VD4) V(VD3) V(VD2) V(VD1) V(VD0)
+.control
+* Plot/write to file
+* plot V(VOUT) V(VPG) V(VRAMP)
+tran 1ns 15ns
+* print V(VREAD) V(VWRITE) V(VD7) V(VD6) V(VD5) V(VD4) V(VD3) V(VD2) V(VD1) V(VD0)
+plot V(VWRITE) V(VREAD) V(VD0) 
+.endc
+.end
+
