@@ -17,7 +17,9 @@ XMNB0 VBN1 VBN1 VSS VSS NCHCM2
 
 * DUT
 .include pixelSensor.cir
-XDUT VDD VSS VPG VRAMP VBN1 VOUT COMP
+* XDUT VDD VSS VPG VRAMP VBN1 VOUT COMP
+XDUT VDD VSS VPG VOUT INV
+* .subckt INV VDD VSS VI VO
 * .subckt COMP VDD VSS PG RAMP VBN1 OUT
 
 *----------------------------------------------------------------

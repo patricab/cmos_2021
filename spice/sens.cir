@@ -1,0 +1,18 @@
+
+.include ../models/ptm_130.spi
+.include ../lib/SUN_TRIO_GF130N.spi
+
+.subckt sens VRESET VSTORE ERASE EXPOSE VDD VSS
+
+C1 VSTORE VSS 100f
+Rleak VSTORE VSS 100T
+Rphoto VPG VSS 1G
+
+* Switch to reset voltage on capacitor
+* BR1 VRESET VSTORE I=V(ERASE)*V(VRESET,VSTORE)/1k
+XR VRESET ERASE VSTORE VSTORE NCHIO
+XEXP VSTORE EXPOSE VPG VPG NCHIO
+
+* Switch to expose pixel
+* BR2 VPG VSTORE I=V(EXPOSE)*V(VSTORE,VPG)/1k
+.ends
