@@ -37,8 +37,8 @@ module PIXEL_SENSOR
   (
    input logic      VBN1,
    input logic      RAMP,
-   input logic      RESET,
-   input logic      ERASE,
+   input logic      MEMRESET,
+   input logic      PIXELERASE,
    input logic      EXPOSE,
    input logic      READ,
    inout [7:0] DATA
@@ -59,11 +59,11 @@ module PIXEL_SENSOR
    // ERASE
    //----------------------------------------------------------------
    // Reset the pixel value on pixRst
-   always @(ERASE) begin
+   always @(PIXELERASE) begin
       tmp = v_erase;
-      p_data = 0;
-      cmp  = 0;
-      adc = 0;
+     // p_data = 0;
+     // cmp  = 0;
+     // adc = 0;
    end
 
    //----------------------------------------------------------------
@@ -74,6 +74,16 @@ module PIXEL_SENSOR
       if(EXPOSE)
         tmp = tmp - dv_pixel*lsb;
    end
+
+   //----------------------------------------------------------------
+   // RESET
+   //----------------------------------------------------------------
+   // Reset the pixel comparator and memory
+   always @(MEMRESET) begin
+      cmp  = 0;
+      adc = 0;
+   end
+   
 
    //----------------------------------------------------------------
    // Comparator
@@ -102,4 +112,4 @@ module PIXEL_SENSOR
    // Assign data to bus when pixRead = 0
    assign DATA = READ ? p_data : 8'bZ;
 
-endmodule // re_control
+endmodule 

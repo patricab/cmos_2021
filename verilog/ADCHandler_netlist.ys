@@ -1,0 +1,10 @@
+# read design
+read_verilog ADCHandler_netlist.v
+read_liberty -lib ../../../lib/SUN_TR_GF130N.lib
+
+# the high-level stuff
+proc;
+
+show -format dot -prefix ADCHandler -colors 1 -width -stretch
+
+clean

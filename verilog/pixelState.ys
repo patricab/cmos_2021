@@ -1,0 +1,32 @@
+# read design
+read_verilog -sv pixelState.v
+
+hierarchy -top pixelState
+
+# the high-level stuffrrr
+proc; fsm; opt; memory; opt
+
+# mapping to internal cell library
+techmap; opt
+
+synth
+
+opt_clean
+
+
+# mapping flip-flops to mycells.lib
+dfflibmap  -liberty ../../../lib/SUN_TR_GF130N.lib
+
+# mapping logic to mycells.lib
+abc -liberty ../../../lib/SUN_TR_GF130N.lib
+
+
+
+write_verilog pixelState_netlist.v
+read_verilog  ../../../lib/SUN_TR_GF130N_empty.v
+write_spice -big_endian -neg AVSS -pos AVDD -top pixelState pixelState_netlist.sp
+
+#show -format dot -prefix pixelState
+show -format dot -prefix pixelState -colors 1 -width -stretch
+# cleanup
+clean

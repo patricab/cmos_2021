@@ -1,0 +1,118 @@
+$date
+	Fri Nov 19 08:51:03 2021
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module test $end
+$var wire 4 ! read_select [3:0] $end
+$var wire 8 " pixelDataOut2 [7:0] $end
+$var wire 8 # pixelDataOut1 [7:0] $end
+$var reg 1 $ clk $end
+$var reg 1 % frame_reset $end
+$var reg 8 & pixData1 [7:0] $end
+$var reg 8 ' pixData2 [7:0] $end
+$var reg 1 ( read $end
+$scope module m1 $end
+$var wire 1 $ clk $end
+$var wire 1 % frame_reset $end
+$var wire 8 ) pixData1 [7:0] $end
+$var wire 8 * pixData2 [7:0] $end
+$var wire 1 ( read $end
+$var wire 4 + read_select [3:0] $end
+$var reg 8 , pixelDataOut1 [7:0] $end
+$var reg 8 - pixelDataOut2 [7:0] $end
+$scope module sr1 $end
+$var wire 1 $ clk $end
+$var wire 1 ( read $end
+$var wire 1 % reset $end
+$var reg 1 . data $end
+$var reg 4 / out [3:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+bx /
+0.
+bx -
+bx ,
+bx +
+b11111111 *
+b10101010 )
+0(
+b11111111 '
+b10101010 &
+0%
+0$
+bx #
+bx "
+bx !
+$end
+#5000
+b0xxx !
+b0xxx +
+b0xxx /
+1$
+#10000
+b1000 !
+b1000 +
+b1000 /
+0$
+1(
+#15000
+b100 !
+b100 +
+b100 /
+b11111111 "
+b11111111 -
+b10101010 #
+b10101010 ,
+1$
+#20000
+0$
+#25000
+b10 !
+b10 +
+b10 /
+1$
+#30000
+0$
+#35000
+b1 !
+b1 +
+b1 /
+1$
+#40000
+0$
+#45000
+b0 !
+b0 +
+b0 /
+1$
+#50000
+0$
+#55000
+1$
+#60000
+0$
+0(
+#65000
+1$
+#70000
+0$
+#75000
+1$
+#80000
+0$
+#85000
+1$
+#90000
+0$
+#95000
+1$
+#100000
