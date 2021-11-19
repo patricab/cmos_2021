@@ -2,34 +2,28 @@
 .include ../lib/SUN_TRIO_GF130N.spi
 
 * Comparator 
-.subckt COMP VDD VSS PG RAMP VBN1 OUT
-* Differential amplifier
-XN1 VCM PG VS VS NCHIO
-XN2 VCS RAMP VS VS NCHIO
-XN3 VS VBN1 VSS VSS NCHIO
-* Current mirror
-XPCM VDD VSS VCM VCS PCM
-* Common source amplifier
-XCS VDD VSS VCS VBN1 VINV CS
-* Inverter
-XINV VDD VSS VINV OUT INV
-.ends cmp
+.subckt COMP VPG VRAMP OUT VBN1 VDD VSS 
+VBT VBT 0 dc 0.3
 
 * PMOS Current Mirror
-.subckt PCM VDD VSS VI VO
-* R1 VDD VG 20k
-XP1 VDD VI VI VI PCHIOA_4C
-XP2 VDD VI VO VO PCHIOA_4C
-.ends
+MP1 VCM VCM VDD VDD pmos w=0.5u l=0.5u
+MP2 CMP VCM VDD VDD pmos w=0.5u l=0.5u
+
+* Differential amplifier
+MN1 VCM VPG VB VSS nmos w=0.5u l=0.5u 
+MN2 CMP VRAMP VB VSS nmos w=0.5u l=0.5u
+
+* Bias transistor
+XB1 VB VBN1 VSS VSS NCHCM2
+
+* Common source amplifier
+MP3 VDD CMP VINV VSS pmos l=0.5u w=0.5u
+MN4 VINV VBT VSS VSS nmos l=0.5u w=0.5u
 
 * Inverter
-.subckt INV VDD VSS VI VO
-XP1 VDD VI VO VO PCHIOA_4C
-XN1 VO VI VSS VSS NCHIO
-.ends INV
+MP4 VDD VINV OUT VDD pmos L=0.5u W=0.5u 
+MN5 OUT VINV VSS VSS nmos L=0.5u W=0.5u
 
-* Signle stage common source amplifier
-.subckt CS VDD VSS VI VBN1 VO
-XP1 VDD VI VO VO PCHIOA_4C
-XN1 VO VBN1 VSS VSS NCHIO
-.ends CS
+* Output capacitor
+CL OUT VSS 1p
+.ends

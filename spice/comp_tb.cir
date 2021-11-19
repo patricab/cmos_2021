@@ -1,0 +1,31 @@
+.include ../models/ptm_130_ngspice.spi
+.include ../lib/SUN_TR_GF130N.spi
+.option TNOM=27 GMIN=1e-15 reltol=1e-6 abstol=1e-6
+
+* Sources
+VDD VDD VSS dc 1.5
+VSS VSS 0 dc 0
+VPG VPG 0 dc 1
+VRAMP VRAMP 0 dc 0
+
+* Bias
+IPB1 0 VBN1 dc 1u
+XMNB0 VBN1 VBN1 VSS VSS NCHCM2
+
+* DUT
+.include comp.cir
+XCMP VPG VRAMP VOUT VBN1 VDD VSS COMP
+
+.control
+set color0=white
+set color1=black
+
+* Sweeps
+* dc VPG 0 2 0.001
+dc VRAMP 0 2 0.001
+
+* Plot/write to file
+plot V(VOUT) V(VPG) V(VRAMP)
+* plot V(VOUT) 
+.endc
+.end

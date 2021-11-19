@@ -1,18 +1,17 @@
-
 .include ../models/ptm_130.spi
 .include ../lib/SUN_TRIO_GF130N.spi
 
 .subckt sens VRESET VSTORE ERASE EXPOSE VDD VSS
 
+* Model capacitor, resistor and leakage resistor for photogate
 C1 VSTORE VSS 100f
 Rleak VSTORE VSS 100T
 Rphoto VPG VSS 1G
 
-* Switch to reset voltage on capacitor
-* BR1 VRESET VSTORE I=V(ERASE)*V(VRESET,VSTORE)/1k
+* Reset transistor
 XR VRESET ERASE VSTORE VSTORE NCHIO
+
+* Expose transiser
 XEXP VSTORE EXPOSE VPG VPG NCHIO
 
-* Switch to expose pixel
-* BR2 VPG VSTORE I=V(EXPOSE)*V(VSTORE,VPG)/1k
 .ends

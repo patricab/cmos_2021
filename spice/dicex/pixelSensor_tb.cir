@@ -99,9 +99,7 @@ XMNB0 VBN1 VBN1 VSS VSS NCHCM2
 *----------------------------------------------------------------
 .include pixelSensor.cir
 XDUT VBN1 VRAMP VRESET ERASE EXPOSE READ
-+ DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 VDD VSS PIXEL_SENSOR
-
-
++ DATA_7 DATA_6 DATA_5 DATA_4 DATA_3 DATA_2 DATA_1 DATA_0 VDD VSS pixel_sensor
 *----------------------------------------------------------------
 * RAMP
 *----------------------------------------------------------------
@@ -181,7 +179,7 @@ set color0=white
 set color1=black
 unset askquit
 tran 1n 60u
-plot V(XDUT.VSTORE)
+* plot V(XDUT.VSTORE)
 *plot V(ERASE) V(EXPOSE) V(CONVERT) V(READ)
 * plot V(VRAMP) V(CONVERT) V(ERASE)
 * plot V(DO)

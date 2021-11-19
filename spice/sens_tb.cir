@@ -1,0 +1,27 @@
+.include ../models/ptm_130_ngspice.spi
+.include ../lib/SUN_TR_GF130N.spi
+
+* Sources
+VDD VDD VSS dc 1.5
+VRESET VRESET VSS dc 1.5
+VSS VSS 0 dc 0
+
+* Signals
+VERASE VERASE VSS dc 0 pulse(0 5 2u 1n 1n 1u 0 0)
+VEXPOSE VEXPOSE VSS dc 0 pulse(0 5 4u 1n 1n 1u 0 0)
+
+* DUT
+.include sens.cir
+XDUT VRESET VSTORE VERASE VEXPOSE VDD VSS SENS
+
+.control
+set color0=white
+set color1=black
+set color4=purple
+
+tran 1us 10us
+
+plot V(VERASE) V(VEXPOSE) V(VSTORE) 
+
+.endc
+.end

@@ -4,8 +4,11 @@ plt=python3 ../../py/plot.py
 pix:
 	${MAKE} ngspice	 TB=pixelSensor_tb
 
-test:
-	${MAKE} ngspice	 TB=test
+sens:
+	${MAKE} ngspice	 TB=sens_tb
+
+comp:
+	${MAKE} ngspice	 TB=comp_tb
 
 ngspice:
 	ngspice -a ${TB}.cir
